@@ -4,6 +4,8 @@ import "./grades.css"
 import { getCourses, getCourseAverage, addCourse, removeCourse, getNextColor, addGrade, removeGrade} from "../../data/courses.js";
 import { parse, format, parseISO } from "date-fns";
 import { initDatePicker } from "../../utils/datepicker.js";
+import Chart from "chart.js/auto"
+import "chartjs-adapter-date-fns"
 
 let selectedCourseId = getCourses()[0]?.id ?? null;
 
@@ -47,6 +49,8 @@ function renderCourseList() {
     });
 
     renderGradeList();
+    renderChartLegend();
+    renderChart();
 }
 
 function renderGradeList() {
@@ -75,6 +79,63 @@ function renderGradeList() {
     });
 }
 
+let chartInstance = null;
+
+function buildDatasets(){
+    return getCourses().map((course) => ({
+        label: course.name,
+        borderColor: course.color,
+        backgroundColor: course.color,
+        data: course.grades.map((g) => ({x: g.date, y: g.value})),
+        tension: 0.3,
+    }));
+}
+
+function renderChartLegend(){
+    const legend = document.querySelector(".chart-legend");
+    if (!legend) return;
+
+    legend.innerHTML = getCourses().map((course) => `
+        <label class="legend-item">
+            <input type="checkbox" class="legend-checkbox data-course-id="${course.id}" checked>
+            <span style="color:${course.color}">${course.name}"</span>
+        </label>
+    `).join("");
+
+    legend.querySelectorAll(".legend-checkbox").forEach((checkbox) => {
+        checkbox.addEventListener("change", updateChartVisibility);
+    });
+}
+
+function renderChart(){
+    const canvas = document.querySelector("#grades-chart");
+    if (!canvas) return;
+
+    if (chartInstance) chartInstance.destroy();
+
+    chartInstance = new Chart(canvas, {
+        type: "line",
+        data: {datasets: buildDatasets()},
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {type: "time", time: {unit: "month"}},
+                y: {min: 0, max: 10},
+            },
+        },
+    });
+}
+
+function updateChartVisibility() {
+    if (!chartInstance) return;
+
+    document.querySelectorAll(".legend-checkbox").forEach((checkbox, index) => {
+        chartInstance.getDatasetMeta(index).hidden = !checkbox.checked;
+    });
+    chartInstance.update();
+}
+
 export function renderGrades(root, navigate) {
     root.innerHTML = `
     <div class="grades">
@@ -82,7 +143,10 @@ export function renderGrades(root, navigate) {
 
         <div class="grades-layout">
             <section class="chart-panel">
-                <p class="chart-panel-label">Grades over time</p>
+                <div class="chart-panel-header">
+                    <p class="chart-panel-label">Grades over time</p>
+                    <div class="chart-legend"></div>
+                </div>
                 <div class="chart-container">
                     <canvas id="grades-chart"></canvas>
                 </div>

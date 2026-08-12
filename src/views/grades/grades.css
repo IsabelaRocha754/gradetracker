@@ -1,15 +1,3 @@
-/* ==========================================================================
-   grades.css
-   Styles for src/views/grades.
-
-   Uses the same palette as home.css:
-   - Brand blue  #276CF5
-   - Brand pink  #F5276C
-   - Shared surface / text / border custom properties, redeclared here so
-     this file works standalone. Move these to a shared variables.css and
-     import it in both views once you're ready to de-duplicate.
-   ========================================================================== */
-
 :root {
   /* brand */
   --color-brand-blue: #276CF5;
@@ -33,6 +21,10 @@
   --radius: 8px;
   --radius-card: 12px;
   --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+body{
+    background-color: var(--surface-2);
 }
 
 /* ==========================================================================
@@ -87,8 +79,8 @@
 }
 
 .chart-container canvas {
-  width: 100% !important;
-  height: 100% !important;
+  width: 100%;
+  height: 100%;
 }
 
 /* ==========================================================================

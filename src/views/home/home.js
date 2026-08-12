@@ -13,6 +13,8 @@ export function renderHome(root, navigate){
 
     root.innerHTML = `
     <div class="home">
+        <h1>Dashboard</h1>
+        
         <section class="stats-overview">
             <div class="grid">
                 <div class="grid-box">
