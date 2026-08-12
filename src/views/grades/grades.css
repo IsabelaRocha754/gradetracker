@@ -1,0 +1,282 @@
+/* ==========================================================================
+   grades.css
+   Styles for src/views/grades.
+
+   Uses the same palette as home.css:
+   - Brand blue  #276CF5
+   - Brand pink  #F5276C
+   - Shared surface / text / border custom properties, redeclared here so
+     this file works standalone. Move these to a shared variables.css and
+     import it in both views once you're ready to de-duplicate.
+   ========================================================================== */
+
+:root {
+  /* brand */
+  --color-brand-blue: #276CF5;
+  --color-brand-pink: #F5276C;
+
+  /* surfaces */
+  --surface-2: #ffffff;
+  --surface-1: #f4f4f2;
+
+  /* text */
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b6b68;
+  --text-muted: #9a9a96;
+  --text-accent: var(--color-brand-blue);
+
+  /* borders */
+  --border: #e5e5e2;
+  --border-accent: var(--color-brand-blue);
+
+  /* layout */
+  --radius: 8px;
+  --radius-card: 12px;
+  --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ==========================================================================
+   Page layout
+   ========================================================================== */
+
+.grades {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: var(--font-sans);
+}
+
+.grades h1 {
+  margin: 0.25rem 0 0;
+  color: var(--text-primary);
+}
+
+.grades-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* ==========================================================================
+   Chart panel
+   ========================================================================== */
+
+.chart-panel {
+  background: var(--surface-2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.chart-panel-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.chart-container {
+  flex: 1;
+  min-height: 340px;
+  position: relative;
+  background: var(--surface-1);
+  border-radius: var(--radius);
+}
+
+.chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ==========================================================================
+   Sidebar wrapper
+   ========================================================================== */
+
+.grades-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   Course panel
+   ========================================================================== */
+
+.course-panel {
+  background: var(--surface-2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.course-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.course-panel-header h2 {
+  font-weight: 500;
+  font-size: 14px;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+#add-course-btn {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+#add-course-btn:hover {
+  border-color: var(--border-accent);
+}
+
+.course-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.course-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: var(--surface-1);
+  border-radius: var(--radius);
+  border: 0.5px solid transparent;
+  cursor: pointer;
+}
+
+.course-item--selected {
+  background: var(--surface-2);
+  border-color: var(--border-accent);
+}
+
+.course-item--selected .course-name {
+  color: var(--text-accent);
+}
+
+.course-name {
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.course-average {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.remove-course-btn {
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 2px;
+}
+
+.remove-course-btn:hover {
+  color: var(--text-primary);
+}
+
+.grade-actions {
+  border-top: 0.5px solid var(--border);
+  padding-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grade-actions-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.grade-actions-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.grade-actions-buttons button {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.grade-actions-buttons button:hover {
+  border-color: var(--border-accent);
+}
+
+/* ==========================================================================
+   Progress panel
+   ========================================================================== */
+
+.progress-panel {
+  flex: 1;
+  background: var(--surface-2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+#progress-ring .progress-ring-track {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 10;
+}
+
+#progress-ring .progress-ring-value {
+  fill: none;
+  stroke: var(--color-brand-blue);
+  stroke-width: 10;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+#progress-ring .progress-ring-number {
+  font-size: 20px;
+  font-weight: 500;
+  fill: var(--text-primary);
+  text-anchor: middle;
+}
+
+#progress-ring .progress-ring-goal {
+  font-size: 11px;
+  fill: var(--text-secondary);
+  text-anchor: middle;
+}
+
+.progress-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0;
+}

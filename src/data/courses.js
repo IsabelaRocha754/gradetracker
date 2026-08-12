@@ -29,3 +29,25 @@ export function getCourseAverage(course){
     const sum = course.grades.reduce((total, g) => total + g.value, 0);
     return (sum / course.grades.length);
 }
+
+export function getOverallAverage(){
+    const allAverages = courses
+        .map((c) => getCourseAverage(c))
+        .filter((avg) => avg !== null);
+    
+    if (allAverages.length === 0)return null;
+
+    const sum = allAverages.reduce((total, avg) => total + avg, 0);
+    return (sum / allAverages.length)
+}
+
+export function addCourse(name, color){
+    const id = `c${Date.now()}`;
+    courses.push({id, name, color, grades: []});
+    return id;
+}
+
+export function removeCourse(id){
+    const index = courses.findIndex((c) => c.id === id);
+    if (index !== -1) courses.splice(index,1);
+}

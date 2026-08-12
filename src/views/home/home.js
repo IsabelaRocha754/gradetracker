@@ -3,29 +3,34 @@
 import "./home.css"
 import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip } from "chart.js";
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip);
-import { getCourses, getCourseAverage } from "../../data/courses.js";
+import { getCourses, getCourseAverage, getOverallAverage} from "../../data/courses.js";
 
 
 
 export function renderHome(root, navigate){
+    const courses = getCourses();
+    const overallAverage = getOverallAverage();
+
     root.innerHTML = `
     <div class="home">
         <section class="stats-overview">
             <div class="grid">
                 <div class="grid-box">
                     <div class="grid-box-title">Average</div>
-                    <div class="grid-box-info">7.8</div>
+                    <div class="grid-box-info">${overallAverage !== null ? overallAverage.toFixed(2) : "-"}</div>
                 </div>
                 <div class="grid-box">
                     <div class="grid-box-title">Courses</div>
-                    <div class="grid-box-info">5</div>
+                    <div class="grid-box-info">${courses.length}</div>
                 </div>
                 <div class="grid-box">
                     <div class="grid-box-title">Next test</div>
                     <div class="grid-box-info">12/03</div>
                 </div>
             </div>
-            <canvas id="home-chart"></canvas>
+            <div class="chart-container">
+                <canvas id="home-chart"></canvas>
+            </div>
         </section>
 
         <section class="links">

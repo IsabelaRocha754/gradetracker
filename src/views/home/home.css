@@ -5,14 +5,15 @@ body{
     flex-direction: column;
 }
 
-header,
-footer{
+header{
     flex-shrink: 0;
+    background-color: #f4f4f4;
 }
 
 footer{
     display: flex;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 #content{
@@ -61,15 +62,13 @@ footer{
     font-size: 30px;
 }
 
-.chart{
+.chart-container{
     flex: 1;
     min-height: 0;
-    background: #e8e8e8;
+    position: relative;
+    background-color: #f4f4f4;
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #888;
+    padding: 8px;
 }
 
 .links{
