@@ -206,6 +206,13 @@
   align-items: center;
 }
 
+.grade-actions-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
 .grade-actions-label {
   font-size: 12px;
   color: var(--text-secondary);
@@ -229,6 +236,56 @@
 .grade-actions-buttons button:hover {
   border-color: var(--border-accent);
 }
+
+.grade-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 160px;
+    overflow-y: auto;
+}
+
+.grade-item{
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.grade-item:hover{
+    background: #F5276C22;
+}
+
+.grade-item:hover{
+    color: var(--text-secondary);
+}
+
+#add-grade-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 0.5px solid var(--border);
+    background: var(--surface-1);
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+#add-grade-btn:hover{
+    background: var(--surface-2);
+}
+
+
 
 /* ==========================================================================
    Progress panel

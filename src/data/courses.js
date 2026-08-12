@@ -1,5 +1,12 @@
 // src/data/courses.js
 
+const COURSE_COLORS = ["#276CF5", "#F5276C", "#F5B027", "#27F5B0", "#F54927"];
+
+export function getNextColor(){
+    const usedCount = getCourses().length;
+    return COURSE_COLORS[usedCount % COURSE_COLORS.length];
+}
+
 const courses = [
     {
         id: "c1",
@@ -50,4 +57,16 @@ export function addCourse(name, color){
 export function removeCourse(id){
     const index = courses.findIndex((c) => c.id === id);
     if (index !== -1) courses.splice(index,1);
+}
+
+export function addGrade(courseId, date, value){
+    const course = courses.find((c) => c.id === courseId);
+    if (!course) return;
+    course.grades.push({date,value});
+}
+
+export function removeGrade(courseId, index){
+    const course = courses.find((c) => c.id === courseId);
+    if (!course) return;
+    course.grades.splice(index,1);
 }

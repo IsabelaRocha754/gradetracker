@@ -1,7 +1,9 @@
 // src/views/grades/grades.js
 
 import "./grades.css"
-import { getCourses, getCourseAverage, addCourse, removeCourse } from "../../data/courses.js";
+import { getCourses, getCourseAverage, addCourse, removeCourse, getNextColor, addGrade, removeGrade} from "../../data/courses.js";
+import { parse, format, parseISO } from "date-fns";
+import { initDatePicker } from "../../utils/datepicker.js";
 
 let selectedCourseId = getCourses()[0]?.id ?? null;
 
@@ -43,6 +45,34 @@ function renderCourseList() {
             renderCourseList();
         });
     });
+
+    renderGradeList();
+}
+
+function renderGradeList() {
+    const list = document.querySelector(".grade-list");
+    if (!list) return;
+
+    const course = getCourses().find((c) => c.id === selectedCourseId);
+    if (!course) {
+        list.innerHTML = "";
+        return;
+    }
+
+    list.innerHTML = course.grades.map((g, index) => `
+        <li class="grade-item" data-index="${index}">
+            <span>${format(parseISO(g.date), "d MMM yyyy")}</span>
+            <span>${g.value.toFixed(2)}</span>
+        </li>
+    `).join("");
+
+    list.querySelectorAll(".grade-item").forEach((item) => {
+        item.addEventListener("click", () => {
+            const index = Number(item.dataset.index);
+            removeGrade(selectedCourseId, index);
+            renderCourseList();
+        });
+    });
 }
 
 export function renderGrades(root, navigate) {
@@ -68,11 +98,11 @@ export function renderGrades(root, navigate) {
                     <ul class="course-list"></ul>
 
                     <div class="grade-actions">
-                        <span class="grade-actions-label">Grades for selected course</span>
-                        <div class="grade-actions-buttons">
+                        <div class="grade-actions-header>
+                            <span class="grade-actions-label">Grades for selected course</span>
                             <button id="add-grade-btn">+</button>
-                            <button id="remove-grade-btn">-</button>
                         </div>
+                        <ul class="grade-list"></ul>
                     </div>
                 </section>
 
@@ -87,7 +117,71 @@ export function renderGrades(root, navigate) {
 
     renderCourseList();
 
+    document.querySelector("#add-course-btn").addEventListener("click", () => {
+        const name = prompt("Course name: ");
+        if (!name) return null;
+
+        const color = getNextColor();
+        const newId = addCourse(name,color);
+
+        selectedCourseId = newId;
+        renderCourseList();
+    });
+
+    document.querySelector("#add-grade-btn").addEventListener("click", openGradeModal);
+
     root.querySelectorAll("[data-route]").forEach((btn) => {
         btn.addEventListener("click", () => navigate(btn.dataset.route));
+    });
+}
+
+function openGradeModal() {
+    if (!selectedCourseId) {
+        alert("Select a course first.");
+        return;
+    }
+
+    const backdrop = document.createElement("div");
+    backdrop.className = "grade-modal-backdrop";
+    backdrop.innerHTML = `
+        <form class="grade-modal">
+            <h3>Add grade</h3>
+            <label>
+                Date
+                <input type="text" name="date" class="date-input" required>
+            </label>
+            <label>
+                Grade
+                <input type="number" name="value" step="0.1" min="0" max="10" required>
+            </label>
+            <div class="grade-modal-actions">
+                <button type="button" class="grade-modal-cancel">Cancel</button>
+                <button type="submit">Add</button>
+            </div>
+        </form>
+    `;
+    document.body.appendChild(backdrop);
+
+    initDatePicker(backdrop.querySelector(".date-input"));
+
+    backdrop.querySelector(".grade-modal-cancel").addEventListener("click", () => {
+        backdrop.remove();
+    });
+
+    backdrop.addEventListener("click", (e) => {
+        if (e.target === backdrop) backdrop.remove();
+    });
+
+    backdrop.querySelector("form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const rawDate = formData.get("date");
+        const parsedate = parse(rawDate, "d/M/yyyy", new Date());
+        const isoDate = format(parsedate, "yyyy-MM-dd");
+        const value = parseFloat(formData.get("value"));
+
+        addGrade(selectedCourseId, isoDate, value);
+        backdrop.remove();
+        renderCourseList();
     });
 }
