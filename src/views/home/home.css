@@ -50,9 +50,15 @@ footer{
 
 .grid-box{
     flex: 1;
-    background: #f4f4f4;
-    border-radius: 8px;
     padding: 0.75rem;
+}
+
+.grid-box-title{
+    font-size: 20px;
+}
+
+.grid-box-info{
+    font-size: 30px;
 }
 
 .chart{
@@ -78,4 +84,8 @@ footer{
     background: #f4f4f4;
     border-radius: 8px;
     padding: 1rem;
+}
+
+.nav-card-title{
+    font-size: 40px;
 }
