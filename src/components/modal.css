@@ -1,0 +1,64 @@
+.grade-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.grade-modal {
+  background: var(--surface-2);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.grade-modal h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.grade-modal label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.grade-modal input {
+  font-size: 14px;
+  padding: 6px 8px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border);
+  font-family: var(--font-sans);
+}
+
+.grade-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.grade-modal-actions button {
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border);
+  background: var(--surface-2);
+  cursor: pointer;
+}
+
+.grade-modal-actions button[type="submit"] {
+  background: var(--color-brand-blue);
+  color: white;
+  border-color: var(--color-brand-blue);
+}

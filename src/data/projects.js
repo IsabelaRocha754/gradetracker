@@ -7,10 +7,10 @@ let projects = [
     name: "Portfolio website",
     status: "in-progress", // "not-started" | "in-progress" | "blocked" | "done"
     dueDate: "2026-08-20",
-    link: "",
+    links: [],
     tasks: [
-      { id: crypto.randomUUID(), text: "Set up routing", done: true },
-      { id: crypto.randomUUID(), text: "Build home page", done: true },
+      { id: crypto.randomUUID(), text: "Set up routing", done: true, dueDate: "2026-08-10" },
+      { id: crypto.randomUUID(), text: "Build home page", done: true, dueDate: "2026-08-12" },
     ],
   },
 ];
@@ -23,8 +23,8 @@ export function getProject(id) {
   return projects.find((p) => p.id === id);
 }
 
-export function addProject({ name, status = "not-started", dueDate = "", link = "" }) {
-  const project = { id: crypto.randomUUID(), name, status, dueDate, link, tasks: [] };
+export function addProject({ name, status = "not-started", dueDate = "", links = [] }) {
+  const project = { id: crypto.randomUUID(), name, status, dueDate, links, tasks: [] };
   projects.push(project);
   return project;
 }
@@ -44,10 +44,10 @@ export function getTaskProgress(project) {
   return { done, total };
 }
 
-export function addTask(projectId, text) {
+export function addTask(projectId, text, dueDate = "") {
   const project = getProject(projectId);
   if (!project) return;
-  project.tasks.push({ id: crypto.randomUUID(), text, done: false });
+  project.tasks.push({ id: crypto.randomUUID(), text, done: false, dueDate });
 }
 
 export function toggleTask(projectId, taskId) {
@@ -61,4 +61,16 @@ export function removeTask(projectId, taskId) {
   const project = getProject(projectId);
   if (!project) return;
   project.tasks = project.tasks.filter((t) => t.id !== taskId);
+}
+
+export function addLink(projectId, label, url) {
+  const project = getProject(projectId);
+  if (!project) return;
+  project.links.push({ id: crypto.randomUUID(), label, url });
+}
+
+export function removeLink(projectId, linkId) {
+  const project = getProject(projectId);
+  if (!project) return;
+  project.links = project.links.filter((l) => l.id !== linkId);
 }

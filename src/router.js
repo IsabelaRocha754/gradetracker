@@ -1,6 +1,7 @@
 // src/router.js
 import { renderHome } from "./views/home/home.js";
 import { renderProjects } from "./views/projects/projects.js";
+import { renderProjectDetail } from "./views/projects/detail.js"
 import { renderPlanner } from "./views/planner/planner.js";
 import { renderGrades } from "./views/grades/grades.js";
 import { renderNav } from "./components/nav.js";
@@ -11,11 +12,6 @@ const routes = {
   "/planner": renderPlanner,
   "/grades": renderGrades,
 };
-
-// temporary, until the real detail view is built in views/projects/detail.js
-function renderProjectDetail(contentEl, navigate, params) {
-  contentEl.innerHTML = `<p>Project detail placeholder — id: ${params.id}</p>`;
-}
 
 const paramRoutes = [
   { pattern: /^\/projects\/([^/]+)$/, view: renderProjectDetail, paramNames: ["id"] },

@@ -181,16 +181,7 @@ export function renderGrades(root, navigate) {
 
     renderCourseList();
 
-    document.querySelector("#add-course-btn").addEventListener("click", () => {
-        const name = prompt("Course name: ");
-        if (!name) return null;
-
-        const color = getNextColor();
-        const newId = addCourse(name,color);
-
-        selectedCourseId = newId;
-        renderCourseList();
-    });
+    document.querySelector("#add-course-btn").addEventListener("click", openCourseModal);
 
     document.querySelector("#add-grade-btn").addEventListener("click", openGradeModal);
 
@@ -248,4 +239,45 @@ function openGradeModal() {
         backdrop.remove();
         renderCourseList();
     });
+}
+
+function openCourseModal() {
+  const backdrop = document.createElement("div");
+  backdrop.className = "grade-modal-backdrop";
+  backdrop.innerHTML = `
+    <form class="grade-modal">
+      <h3>Add course</h3>
+      <label>
+        Course name
+        <input type="text" name="name" required>
+      </label>
+      <div class="grade-modal-actions">
+        <button type="button" class="grade-modal-cancel">Cancel</button>
+        <button type="submit">Add</button>
+      </div>
+    </form>
+  `;
+  document.body.appendChild(backdrop);
+
+  backdrop.querySelector(".grade-modal-cancel").addEventListener("click", () => {
+    backdrop.remove();
+  });
+
+  backdrop.addEventListener("click", (e) => {
+    if (e.target === backdrop) backdrop.remove();
+  });
+
+  backdrop.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const name = formData.get("name").trim();
+    if (!name) return;
+
+    const color = getNextColor();
+    const newId = addCourse(name, color);
+
+    selectedCourseId = newId;
+    backdrop.remove();
+    renderCourseList();
+  });
 }

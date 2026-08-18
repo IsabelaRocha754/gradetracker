@@ -1,0 +1,247 @@
+.project-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.project-detail h1 {
+  margin: 0.25rem 0 0;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.status-bar {
+  background: var(--surface-2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 0.9rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dot-track {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.dot-track .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+}
+
+.dot-track .dot--done {
+  background: #27F5B0;
+  color: #04342C;
+}
+
+.dot-track .dot--pending {
+  border: 2px solid var(--border-strong, #d3d1c7);
+  background: transparent;
+}
+
+.dot-track .connector {
+  width: 16px;
+  height: 2px;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.connector--done {
+  background: #27F5B0;
+}
+
+.connector--pending {
+  background: var(--border);
+}
+
+#status-select {
+  flex-shrink: 0;
+  width: 140px;
+  font-size: 12px;
+  padding: 5px 8px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border);
+  cursor: pointer;
+}
+
+.detail-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.todo-panel {
+  background: var(--surface-2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 280px;
+}
+
+.todo-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo-panel-header h2 {
+  font-weight: 500;
+  font-size: 14px;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+#add-task-btn {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: var(--surface-1);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.task-checkbox {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.task-checkbox--done {
+  background: #27F5B0;
+}
+
+.task-checkbox--pending {
+  border: 2px solid var(--border-strong, #d3d1c7);
+}
+
+.task-text {
+  font-size: 13px;
+  margin: 0;
+  flex: 1;
+  color: var(--text-primary);
+}
+
+.task-text--done {
+  color: var(--text-secondary);
+  text-decoration: line-through;
+}
+
+.task-due {
+  font-size: 11px;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.detail-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar-card {
+  background: var(--surface-2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1rem 1.25rem;
+}
+
+.sidebar-card h2 {
+  font-weight: 500;
+  font-size: 14px;
+  margin: 0 0 10px;
+  color: var(--text-primary);
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.link-item a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-accent);
+  text-decoration: none;
+}
+
+.link-item a:hover {
+  text-decoration: underline;
+}
+
+.remove-link-btn {
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.remove-link-btn:hover {
+  color: var(--text-primary);
+}
+
+#add-link-btn {
+  margin-top: 10px;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.collaborator-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #276CF522;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-brand-blue);
+}

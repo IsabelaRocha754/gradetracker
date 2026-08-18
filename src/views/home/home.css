@@ -1,37 +1,8 @@
 /* src/views/home/home.css */
 
-:root {
-  /* brand */
-  --color-brand-blue: #276CF5;
-  --color-brand-pink: #F5276C;
-
-  /* surfaces */
-  --surface-2: #ffffff;
-  --surface-1: #f4f4f2;
-
-  /* text */
-  --text-primary: #1a1a1a;
-  --text-secondary: #6b6b68;
-  --text-muted: #9a9a96;
-  --text-accent: var(--color-brand-blue);
-
-  /* borders */
-  --border: #e5e5e2;
-  --border-accent: var(--color-brand-blue);
-
-  /* layout */
-  --radius: 8px;
-  --radius-card: 12px;
-  --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
-}
-
 /* ==========================================================================
    Page layout
    ========================================================================== */
-
-body{
-    height: 100vh;
-}
 
 .home {
   display: grid;
